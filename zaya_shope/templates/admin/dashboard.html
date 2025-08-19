@@ -1,0 +1,63 @@
+﻿{% extends "admin/base2.html" %}
+{% load static %}
+{% block content %}
+
+
+  
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search">
+        <input type="text" placeholder="Search...">
+      </div>
+      <div class="profile">
+        <span>Welcome, Admin</span>
+        <img src="https://i.pravatar.cc/100" alt="Profile" />
+      </div>
+    </div>
+
+    <div class="dashboard">
+      <div class="card">
+        <h3>Revenue</h3>
+        <p style="font-size: 22px;">$120,873</p>
+        <span style="color: green;">+17% from last month</span>
+      </div>
+      <div class="card">
+        <h3>Sales</h3>
+        <p style="font-size: 22px;">$89,203</p>
+        <span style="color: green;">+12% growth</span>
+      </div>
+      <div class="card">
+        <h3>Calendar</h3>
+        <iframe src="https://calendar.google.com/calendar/embed?src=en.indian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FCalcutta" style="width:100%; height:200px; border:0;"></iframe>
+      </div>
+      <div class="card">
+        <h3>Analytics</h3>
+        <canvas id="myChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'Profit',
+          data: [100, 200, 300, 250, 400],
+          backgroundColor: '#7FFFA7'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
+{% endblock %}

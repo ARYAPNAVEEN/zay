@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    {% block title %}<title>Zaya CRM Dashboard</title>{% endblock %}
+  
+
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #04372c;
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+    }
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+    }
+
+    .topbar .search input {
+      padding: 8px 10px;
+      width: 250px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .topbar .profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .card:hover {
+    transform: translateY(-5px);
+    }
+    .sidebar:hover{
+    transform: translateY(-5px);
+    }
+    .categhead h3{
+        color:#04372c;
+    }
+    .categhead a{
+        background:#04372c;
+        color:white;
+    }
+    .table thead {
+        background-color: #04372c !important;
+        color:white;
+    }
+    .my-custom-table {
+      background-color: #ffffff;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .my-custom-table thead {
+      background-color: #04372c;
+      color: white;
+    }
+
+    .my-custom-table tbody tr:hover {
+      background-color: #e0f7fa;
+    }
+
+    .my-custom-table td,
+    .my-custom-table th {
+      padding: 12px;
+      vertical-align: middle;
+    }
+      
+    .table td{
+      color: #04372c !important;
+    }
+    .producthead{
+      color:#04372c !important;
+    }
+    .producthead a{
+        background:#04372c;
+        color:white;
+    }
+     .edit-btn {
+      background: linear-gradient(to right, #04372c, #199321);
+      border: none;
+      color: white;
+      padding: 6px 11px;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .edit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .edit-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 182, 21, 0.4);
+    }
+    .delete-btn{
+        background: linear-gradient(to right, #04372c, #199321);
+        border: none;
+        color: white;
+        padding: 6px 11px;
+        border-radius: 30px;
+        font-weight: 500;
+        font-size: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+    }
+    .delete-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 182, 21, 0.4);
+    }
+    .delete-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+
+    
+  </style>
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Then your custom CSS -->
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Zaya Admin</h2>
+    <a href="{% url 'dashboard' %}"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a href="{% url 'category' %}"><i class="fas fa-tags"></i> Categories</a>
+    <a href="{% url 'products' %}"><i class="fas fa-box"></i> Products</a>
+    <a href="#"><i class="fas fa-calendar-alt"></i> Calendar</a>
+    <a href="#"><i class="fas fa-chart-pie"></i> Analytics</a>
+    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+  </div>
+    {% block content %}
+
+
+    {% endblock %}
+
+</body>
+</html>

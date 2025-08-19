@@ -1,0 +1,114 @@
+{% extends "admin/base2.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Page Header -->
+     <div class="producthead d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold ">🛍️ Products</h2>
+        <a data-bs-toggle="modal" data-bs-target="#addproductModal" class="btn "> Add New Product</a>
+       
+    </div>
+
+    <!-- Product Table Card -->
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center mb-0">
+                    <thead class="table-light">
+                        <tr class="fw-bold">
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>Stock</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>₹ {{ product.price }}</td>
+                            <td class="text-truncate" style="max-width: 200px;">{{ product.description }}</td>
+                            <td>
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail rounded shadow-sm" style="max-width: 80px;">
+                                {% else %}
+                                    <span class="text-muted">No Image</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ product.stock }}</td>
+                            <td>
+                                <a href="{% url 'update' product.id %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">✏️ Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete' product.id %}" class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="return confirm('Are you sure to delete this product?')">🗑️ Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">No products found.</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="addproductModal" tabindex="-1" aria-labelledby="addproductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0 rounded-4" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="addproductModalLabel">Add New Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form method="POST" action="{% url 'addproduct' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Product Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter product name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Price</label>
+            <input type="text" class="form-control" name="price" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea class="form-control" name="description" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Category</label>
+            <select name="category" class="form-select" required>
+              {% for i in categorys %}
+                <option value="{{ i.id }}">{{ i.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Image</label>
+            <input type="file" class="form-control" name="image" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Stock</label>
+            <input type="number" class="form-control" name="stock" min="0" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success rounded-pill px-4">Add Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
