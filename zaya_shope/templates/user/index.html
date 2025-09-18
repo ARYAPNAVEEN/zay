@@ -111,21 +111,25 @@
             </div>
         </div>
         <div class="row">
+          {% for i in categ %}
             <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{% static 'img/img3.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <h5 class="text-center mt-3 mb-3">Traditional necklace set</h5>
+                <a href="#"><img src="{{i.image.url}} " class="rounded-circle img-fluid border"></a>
+                <h5 class="text-center mt-3 mb-3">{{i.name}}</h5>
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{% static 'img/rings.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Rings</h2>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{% static 'img/category_img_03.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-            </div>
+            
+          {% endfor %}
+          {% if categ %}
+                    {% if categ.count %}
+                        {# when it's a list (QuerySet) #}
+                        {% for c in categ %}
+                            <p>{{ c.name }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {# when it's a single object #}
+                        <p>{{ categ.name }}</p>
+                    {% endif %}
+                {% endif %}
         </div>
     </section>
     <!-- End Categories of The Month -->
@@ -159,15 +163,9 @@
                                         </div>
                                     </div>
                                     
-                                        <div class="card-body">
+                                       <div class="card-body">
                                             <ul class="list-unstyled d-flex justify-content-between">
-                                                <li>
-                                                    <i class="text-warning fa fa-star"></i>
-                                                    <i class="text-warning fa fa-star"></i>
-                                                    <i class="text-warning fa fa-star"></i>
-                                                    <i class="text-muted fa fa-star"></i>
-                                                    <i class="text-muted fa fa-star"></i>
-                                                </li>
+                                                
                                                 <li class="text-muted text-right">Rs{{product.price}}</li>
                                             </ul> 
                                             <a href="{% url 'product_details' product.id %}" class="h2 text-decoration-none text-dark">{{ product.name }}</a>
@@ -181,111 +179,7 @@
                             </div>
                 {% endfor %}
             </div>
-            {% comment %} <div class="row">
-                {% for product in products %}
-                <div class="col-md-4">
-                    <div class="card mb-4 product-wap rounded-0">
-                        <div class="card rounded-0">
-                            <a href="{% url 'product_details' product.id %}">
-                                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">Rs{{product.price}}</li>
-                            </ul> 
-                            <a href="{% url 'product_details' product.id %}" class="h2 text-decoration-none text-dark">{{product.name}}</a>
-                            <p class="card-text">
-                                {{product.description}}
-                            </p>
-                            <p class="text-muted">Reviews (24)</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>  {% endcomment %}
-
-            {% comment %} <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="{% url 'product_details' product.id %}">
-                            <img src="{% static 'img/feature_prod_01.jpg' %}" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$240.00</li>
-                            </ul>
-                            <a href="{% url 'product_details' product.id %}" class="h2 text-decoration-none text-dark">Gym Weight</a>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
-                            </p>
-                            <p class="text-muted">Reviews (24)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="{% url 'product_details'  product.id %}">
-                            <img src="{% static 'img/feature_prod_02.jpg' %}" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$480.00</li>
-                            </ul>
-                            <a href="{% url 'product_details' product.id %}" class="h2 text-decoration-none text-dark">Cloud Nike Shoes</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="{% url 'product_details' product.id %}">
-                            <img src="{% static 'img/feature_prod_03.jpg' %}" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$360.00</li>
-                            </ul>
-                            <a href="{% url 'product_details' product.id %}" class="h2 text-decoration-none text-dark">Summer Addides Shoes</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
-            </div> {% endcomment %}
+           
 
 
 

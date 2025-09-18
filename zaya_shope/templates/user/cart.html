@@ -4,36 +4,49 @@
 {% block content %}
 <div class="container py-5">
   <div class="row">
+    <!-- Cart Items -->
     <div class="col-lg-8">
       <h3 class="fw-bold mb-4">🛒 Your Cart</h3>
 
-      <!-- Loop through cart items -->
       {% for item in cart_items %}
       <div class="card mb-4 shadow-sm border-0 rounded-4">
         <div class="row g-0 align-items-center">
+          <!-- Product Image -->
           <div class="col-md-3">
-            <img src="{{ item.product.image.url }}" class="img-fluid rounded-start" alt="{{ item.product.name }}">
+            <img src="{{ item.product.image.url }}" class="img-fluid rounded me-6" style="width:70px; height:70px; object-fit:cover;" alt="{{ item.product.name }}">
+            <form method="POST" action="{% url 'update_qnty' item.id %}" class="d-flex align-items-center gap-2">
+                {% csrf_token %}
+                <button type="submit" name="action" value="decrement" class="btn btn-outline-success btn-sm rounded-circle">−</button>
+                <input type="text" value="{{ item.qnty }}" readonly class="form-control text-center border-0 bg-light" style="width: 40px; height:30px; font-size:20px !important;">
+                <button type="submit" name="action" value="increment" class="btn btn-outline-success btn-sm rounded-circle">+</button>
+            </form>
           </div>
+
+          <!-- Product Info -->
           <div class="col-md-6">
             <div class="card-body">
               <h5 class="card-title fw-semibold">{{ item.product.name }}</h5>
-              <p class="card-text text-muted">₹{{ item.product.price }}</p>
-              {% comment %} update_cart {% endcomment %}
-              <form method="POST" action="{% url '' item.id %}">
+              <p class="card-text text-muted mb-2">₹{{ item.product.price }}</p>
+
+              <!-- Quantity Update Form -->
+              {% comment %} <form method="POST" action="{% url 'update_qnty' item.id %}" class="d-flex align-items-center gap-2">
                 {% csrf_token %}
-                <div class="d-flex align-items-center gap-2">
-                  <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm w-25">
-                  <button class="btn btn-outline-primary btn-sm">Update</button>
-                </div>
-              </form>
+                <button type="submit" name="action" value="decrement" class="btn btn-outline-success btn-sm rounded-circle">−</button>
+                <input type="text" value="{{ item.qnty }}" readonly class="form-control text-center border-0 bg-light" style="width: 60px;">
+                <button type="submit" name="action" value="increment" class="btn btn-outline-success btn-sm rounded-circle">+</button>
+              </form> {% endcomment %}
+
+              <!-- Subtotal -->
+              <div class="mt-3">
+                <small class="text-muted">Subtotal</small>
+                <h6 class="fw-bold mb-0">₹{{ item.subtotal }}</h6>
+              </div>
             </div>
           </div>
+
+          <!-- Remove -->
           <div class="col-md-3 text-end pe-4">
-            {% comment %}url 'remove_from_cart' item.id{% endcomment %}
-            <form method="POST" action="">
-              {% csrf_token %}
-              <button class="btn btn-outline-danger btn-sm">Remove 🗑️</button>
-            </form>
+            <a href="{% url 'remove_cart' item.id %}" class="btn btn-outline-danger btn-sm rounded-pill">Remove 🗑️</a>
           </div>
         </div>
       </div>
@@ -46,17 +59,12 @@
     <div class="col-lg-4">
       <div class="card shadow-lg border-0 rounded-4 p-4">
         <h5 class="fw-bold mb-3">Order Summary</h5>
-        <div class="d-flex justify-content-between">
-          <span>Subtotal</span>
-          <span>₹{{ cart_total }}</span>
-        </div>
         <hr>
         <div class="d-flex justify-content-between fw-bold">
           <span>Total</span>
-          <span>₹{{ cart_total }}</span>
+          <span>₹{{ cart.total }}</span>
         </div>
-        {% comment %} checkout {% endcomment %}
-        <a href="" class="btn btn-success w-100 mt-4 rounded-pill">Proceed to Checkout</a>
+        <a href="{% url 'checkout' %}"  class="btn btn-success w-100 mt-4 rounded-pill">Proceed to Checkout</a>
       </div>
     </div>
   </div>

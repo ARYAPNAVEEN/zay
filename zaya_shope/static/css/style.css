@@ -60,41 +60,47 @@
 
 
 
-/* product table */
 
-/* .dproduct{
-    width: 100%;
-    background-color: aqua;
+/* Product Image Hover */
+#product-detail {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 16px;
 }
-.dproduct table {
-    border: 1px solid #ccc;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.dproduct th,
-.dproduct td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #1a946b;
+#product-detail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-.dproduct th {
-    background-color: #f7f7f7;
-    color: #333;
-    text-transform: uppercase;
-    font-size: 14px;
+/* Product Title */
+.card-body h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-.dproduct tr:hover {
-    background-color: #f1f1f1;
-    transition: background-color 0.3s ease;
+/* Price Highlight */
+.card-body p.h3 {
+  color: #198754; /* emerald green */
+  font-weight: 600;
 }
 
-.dproduct img {
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-} */
+/* Buttons */
+.btn {
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+.btn-dark {
+  background: #212529;
+  border: none;
+}
+.btn-success {
+  background: #198754;
+  border: none;
+}
+
 
 
 

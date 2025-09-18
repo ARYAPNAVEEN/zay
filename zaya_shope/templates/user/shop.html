@@ -38,35 +38,25 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Start Content -->
     <div class="container py-5">
         <div class="row">
-
-            <div class="col-lg-3">
-                <h1 class="h2 pb-4">Categories</h1>
-                <ul class="list-unstyled templatemo-accordion">
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Necklace
-                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Choker</a></li>
-                            <li><a class="text-decoration-none" href="#">Pendent necklace</a></li>
-                        </ul>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Earings
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Rings
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                       
-                    </li>
+          
+           <div class="col-lg-3">
+                <h2 class="text-dark fw-bold mb-4">Categories</h2>
+                <ul class="list-unstyled">
+                   {% for item in categ %}
+                        <li class="mb-3">
+                            <a class="d-flex justify-content-between align-items-center px-3 py-2 rounded shadow-sm bg-white text-dark text-decoration-none category-link" 
+                            data-toggle="collapse" href="#cat{{ item.id }}" role="button" aria-expanded="false">
+                                <span><i class="fa fa-gem me-2 text-success"></i> {{ item.name }}</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li>No categories found.</li>
+                   {% endfor %}
                 </ul>
             </div>
+          
+
 
             <div class="col-lg-9">
                 <div class="row">
@@ -108,27 +98,27 @@ https://templatemo.com/tm-559-zay-shop
                                                 <ul class="list-unstyled">
                                                     <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
                                                     <li><a class="btn btn-success text-white mt-2" href="{% url 'product_details' item.id %}"><i class="far fa-eye"></i></a></li>
-                                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'product_details' item.id %}"><i class="fas fa-cart-plus"></i></a></li>
+                                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'addto_cart' item.id %}"><i class="fas fa-cart-plus"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        
-                                            <div class="card-body">
-                                                <ul class="list-unstyled d-flex justify-content-between">
+                                          <div class="card-body">
+                                                <ul class="list-unstyled d-flex justify-content-between align-items-center">
                                                     <li>
-                                                        <i class="text-warning fa fa-star"></i>
-                                                        <i class="text-warning fa fa-star"></i>
-                                                        <i class="text-warning fa fa-star"></i>
-                                                        <i class="text-muted fa fa-star"></i>
-                                                        <i class="text-muted fa fa-star"></i>
+                                                        <a href="{% url 'product_details' item.id %}" class="h5 text-decoration-none text-dark fw-bold">
+                                                            {{ item.name }}
+                                                        </a>
                                                     </li>
-                                                    <li class="text-muted text-right">Rs{{item.price}}</li>
+                                                    <li class="text-muted fw-semibold">₹{{ item.price }}</li>
                                                 </ul> 
-                                                <a href="{% url 'product_details' item.id %}" class="h2 text-decoration-none text-dark">{{ item.name }}</a>
-                                                <p class="card-text">
-                                                    {{item.description}}
+                                                
+                                                <p class="card-text text-muted small mt-2">
+                                                    {{ item.description|truncatewords:12 }}
                                                 </p>
-                                                <p class="text-muted">Reviews (24)</p>
+
+                                                <a href="{% url 'product_details' item.id %}" class="btn  btn-sm rounded-pill mt-2" style="background-color: #59ab6e !important;border-color: #56ae6c !important;color:white;font_size:bold;">
+                                                    View Details
+                                                </a>
                                             </div>
 
                                     </div>

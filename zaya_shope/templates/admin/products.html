@@ -6,7 +6,9 @@
     <!-- Page Header -->
      <div class="producthead d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold ">🛍️ Products</h2>
-        <a data-bs-toggle="modal" data-bs-target="#addproductModal" class="btn "> Add New Product</a>
+        <a href="{% url 'addproduct' %}"> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addproductModal">
+                Add New Product</button> </a>
+
        
     </div>
 
@@ -20,6 +22,8 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
+                            <th>discount %</th>
+                            <th>discount price</th>
                             <th>Description</th>
                             <th>Image</th>
                             <th>Stock</th>
@@ -32,6 +36,8 @@
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>₹ {{ product.price }}</td>
+                            <td>{{product.discount }}<td>
+                            <td>{{product.discount_price }}<td> 
                             <td class="text-truncate" style="max-width: 200px;">{{ product.description }}</td>
                             <td>
                                 {% if product.image %}
@@ -61,54 +67,6 @@
 </div>
 
 
-<!-- Add Product Modal -->
-<div class="modal fade" id="addproductModal" tabindex="-1" aria-labelledby="addproductModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow-lg border-0 rounded-4" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
-      <div class="modal-header border-0">
-        <h5 class="modal-title fw-bold" id="addproductModalLabel">Add New Product</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
 
-      <form method="POST" action="{% url 'addproduct' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Product Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Enter product name" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Price</label>
-            <input type="text" class="form-control" name="price" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Description</label>
-            <textarea class="form-control" name="description" rows="3" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Category</label>
-            <select name="category" class="form-select" required>
-              {% for i in categorys %}
-                <option value="{{ i.id }}">{{ i.name }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Image</label>
-            <input type="file" class="form-control" name="image" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Stock</label>
-            <input type="number" class="form-control" name="stock" min="0" required>
-          </div>
-        </div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-success rounded-pill px-4">Add Product</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 {% endblock %}

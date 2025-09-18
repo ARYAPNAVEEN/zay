@@ -24,11 +24,17 @@ urlpatterns = [
     path('about/',views.about,name='about'),
     path('contact/',views.contact,name='contact'),
     path('get_productdetails/<int:id>/',views.get_productdetails,name='get_productdetails'),
+    path('get_category',views.get_category,name='get_category'),
     path('product_details/<int:id>/',views.product_details,name='product_details'),
     path('shop/',views.shop,name='shop'),
     path('register/',views.register,name='register'),
     path('login/',views.user_login,name='login'),
     path('cart/',views.cart,name='cart'),
+    path('checkout/', views.checkout, name="checkout"),
+    path('order_success/',views.order_success,name="order_success"),
+    path('addto_cart/<int:id>/',views.addto_cart,name="addto_cart"),
+    path('remove_cart/<int:id>/',views.remove_cart,name="remove_cart"),
+    path('update_qnty/<int:id>/',views.update_qnty,name="update_qnty"),
     path('logout_user/',views.logout_user,name='logout'),
     
    
